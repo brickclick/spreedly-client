@@ -11,7 +11,7 @@ A Node.js library for working with the Spreedly API and credit card tokenization
 ## Spreedly
 The main class for working with the Spreedly Environment
 
-####`new Spreedly(environmentKey, accessSecret, [options])` -> `Spreedly`
+#####`new Spreedly(environmentKey, accessSecret, [options])` -> `Spreedly`
 Creates a new instance of the Spreedly class, for a given environment key.
 
 Arguments:
