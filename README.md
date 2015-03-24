@@ -22,8 +22,8 @@ Creates a new instance of the Spreedly class, for a given environment key.
 
 Arguments:
 
-- `environmentKey` (String) - Your environment key
-- `accessSecret` (String) - Your access secret
+- `environmentKey` (String) - Your [environment key] (https://docs.spreedly.com/guides/account/#environments)
+- `accessSecret` (String) - Your [access secret] (https://docs.spreedly.com/guides/account/#access-secrets)
 - `options` (Object) [optional] - Key/Value object of additional options for the Spreedly API.
 
     Currently the only options are as follows:
