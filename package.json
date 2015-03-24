@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/brickclick/spreedly.git"
+    "url": "https://github.com/t3rminus/spreedly-client.git"
   },
   "keywords": [
     "spreedly",

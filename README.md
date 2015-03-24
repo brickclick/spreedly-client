@@ -3,6 +3,12 @@
 ## Introduction
 A Node.js library for working with the Spreedly API and credit card tokenization service.
 
+## Callbacks vs. Promises
+Why all the fighting and arguing? There is a perfectly good solution: do both. It's easy.
+
+_All_ Spreedly client methods support both an optional Node.js-style `function(err, result)` callback parameter, 
+and _also_ return a [Bluebird] (https://github.com/petkaantonov/bluebird) promise.
+
 ***
 ## API
 - [Spreedly](#Spreedly)
