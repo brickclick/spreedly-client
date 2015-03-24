@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "bluebird": "^2.9.14",
+    "humps": "^0.4.2",
     "lodash": "^3.5.0",
     "prequest": "0.0.3",
     "tarot-js": "0.0.2",
