@@ -8,6 +8,13 @@ var spreedlyClient = new Spreedly(environmentKey, accessSecret);
 
 describe('Spreedly', function() {
 	describe('Gateway Management', function() {
+		var spreedlyClient;
+		before(function(done) {
+			spreedlyClient = new Spreedly(environmentKey, accessSecret);
+
+			done();
+		});
+
 		it('Can list supported gateway types', function(done) {
 			spreedlyClient.listAvailableGateways(function(err, result){
 				should.not.exist(err);
@@ -55,6 +62,26 @@ describe('Spreedly', function() {
 				});
 			});
 		});
+		it('Can get info for a single gateway', function(done) {
+			spreedlyClient.listGateways(function(err, result) {
+				should.not.exist(err);
+
+				var token = result[0].token;
+
+				spreedlyClient.showGateway(token, function(err, result) {
+					should.not.exist(err);
+					should.exist(result);
+
+					result.should.be.an('object');
+					result.name.should.not.be.empty;
+					result.should.contain.all.keys('characteristics', 'createdAt',
+						'credentials', 'gatewayType', 'name', 'paymentMethods',
+						'redacted', 'state', 'token', 'updatedAt');
+
+					done();
+				});
+			});
+		});
 		it('Can redact a provisioned gateway', function(done) {
 			spreedlyClient.listGateways(function(err, result) {
 				should.not.exist(err);
@@ -85,26 +112,6 @@ describe('Spreedly', function() {
 						should.not.exist(err);
 					})
 					.finally(done);
-			});
-		});
-		it('Can get info for a single gateway', function(done) {
-			spreedlyClient.listGateways(function(err, result) {
-				should.not.exist(err);
-
-				var token = result[0].token;
-
-				spreedlyClient.showGateway(token, function(err, result) {
-					should.not.exist(err);
-					should.exist(result);
-
-					result.should.be.an('object');
-					result.name.should.not.be.empty;
-					result.should.contain.all.keys('characteristics', 'createdAt',
-						'credentials', 'gatewayType', 'name', 'paymentMethods',
-						'redacted', 'state', 'token', 'updatedAt');
-
-					done();
-				});
 			});
 		});
 	});

@@ -5,10 +5,15 @@ var should = require('chai').should(),
 	environmentKey = process.env.ENVIRONMENT_KEY,
 	accessSecret = process.env.ACCESS_SECRET;
 
-var spreedlyClient = new Spreedly(environmentKey, accessSecret);
-
 describe('Spreedly', function() {
 	describe('Payment Method Management', function() {
+		var spreedlyClient;
+		before(function(done) {
+			spreedlyClient = new Spreedly(environmentKey, accessSecret);
+
+			done();
+		});
+
 		it('Can create a payment method', function(done) {
 			var cc = new CreditCard('Test', 'Name', 'tname@example.com', '4111111111111111', '12', '16', '123');
 			spreedlyClient.createCreditCard(cc, function(err, result){
@@ -75,8 +80,7 @@ describe('Spreedly', function() {
 
 					result[0].should.be.an('object');
 					should.exist(result[0].paymentMethod);
-					result.paymentMethod.storageState.should.equal('redacted');
-
+					result[0].paymentMethod.storageState.should.equal('redacted');
 				})
 					.catch(function(err) {
 						should.not.exist(err);
