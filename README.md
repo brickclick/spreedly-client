@@ -63,7 +63,7 @@ and _also_ return a [Bluebird promise] (https://github.com/petkaantonov/bluebird
 ## API
 - [Spreedly](#Spreedly)
     - [`new Spreedly(environmentKey, accessSecret, [options])`](#new-spreedly-environmentkey-accesssecret-options---spreedly)
-    - [`.listAvailableGateways([cb])` -> `Promise`](#listavailablegateways-cb---promise)
+    - [`.listAvailableGateways([cb])` -> `Promise`](#listavailablegatewayscb---promise)
     - *(additional documentation coming soon)*
     
 ## Spreedly
