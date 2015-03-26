@@ -1,10 +1,9 @@
-# Spreedly Library for Node.js [![Build Status](https://travis-ci.org/t3rminus/spreedly-client.svg?branch=master)](https://travis-ci.org/t3rminus/spreedly-client)
+# Spreedly Client for Node.js [![Build Status](https://travis-ci.org/t3rminus/spreedly-client.svg?branch=master)](https://travis-ci.org/t3rminus/spreedly-client)
 
 ## Introduction
-A Node.js library for working with the Spreedly API and credit card tokenization service.
-
-Wherever possible, I've followed the core [Spreedly API] (https://docs.spreedly.com/reference/api/v1/),
-providing easy-to-use methods for the major API URLs. 
+A Node.js library for working with the [Spreedly API] (https://docs.spreedly.com/reference/api/v1/)
+and credit card tokenization service. I've tried to follow the API as closely as possible,
+and provided methods for most of the major functions. 
 
 ## Property Naming & Result Objects
 The Spreedly API returns XML elements that are underscore_separated.
@@ -30,9 +29,11 @@ is converted to
     login: "Your Authorize.Net API Login ID"
 }
 ```
-Note that there is no root "gateway" element wrapping everything-- It is assumed that the base object represents the root, and it is not named.
+Note that there is no root "gateway" element wrapping everything--
+It is assumed that the base object represents the root, and it is not named.
 
-Additionally, in cases where Spreedly provides a concrete data type, they will be converted to native Javascript types.
+Additionally, in cases where Spreedly provides a concrete data type,
+they will be converted to native Javascript types.
 
 Example:
 ```xml
@@ -54,10 +55,12 @@ becomes
 ```
 
 ## Callbacks vs. Promises
-Why all the fighting and arguing over which way is better? There is a perfectly good solution: do both. It's easy.
+Why all the fighting and arguing over which way is better?
+There is a perfectly good solution: do both. It's easy.
 
-_All_ Spreedly client methods support both an optional Node.js-style `function(err, result)` callback parameter, 
-and _also_ return a [Bluebird promise] (https://github.com/petkaantonov/bluebird).
+_All_ Spreedly client methods support both an optional Node.js-style
+`function(err, result)` callback parameter, and _also_ return a 
+[Bluebird promise] (https://github.com/petkaantonov/bluebird).
 
 ***
 ## API

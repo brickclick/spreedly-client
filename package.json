@@ -1,5 +1,5 @@
 {
-  "name": "spreedly",
+  "name": "spreedly-client",
   "version": "0.0.1",
   "description": "Spreedly client for Node.js",
   "main": "index.js",
@@ -12,8 +12,8 @@
     "payments"
   ],
   "author": {
-    "name": "Kevin Smith",
-    "email": "kevin@brickclickrms.com",
+    "name": "Kevin S",
+    "email": "k3vin.net@gmail.com",
     "url": "http://bricklickrms.com"
   },
   "scripts": {
