@@ -71,6 +71,8 @@ describe('Spreedly', function() {
 
 		it('Can capture a partial amount on an authorized payment', function(done) {
 			spreedlyClient.authorize(gateway, card.paymentMethod, 1000, 'USD', function(err, result) {
+				should.not.exist(err);
+
 				spreedlyClient.capture(result, 500, function(err, result) {
 					should.not.exist(err);
 					should.exist(result);
