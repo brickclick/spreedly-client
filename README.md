@@ -67,6 +67,9 @@ _All_ Spreedly client methods support both an optional Node.js-style
 - [Spreedly](#Spreedly)
     - [`new Spreedly(environmentKey, accessSecret, [options])`](#new-spreedly-environmentkey-accesssecret-options---spreedly)
     - [`.listAvailableGateways([cb])` -> `Promise`](#listavailablegatewayscb---promise)
+    - [`.createGateway(gatewayType, [credentials], [cb])` -> `Promise`](#creategatewaygatewaytype-credentials-cb---promise)
+    - [`.listGateways([cb])` -> `Promise`](#listgatewayscb---promise)
+    - [`.updateGateway(gatewayToken, [credentials], [cb])` -> `Promise`](#updategatewaygatewaytoken-credentials-cb---promise)
     - *(additional documentation coming soon)*
     
 ## Spreedly
@@ -100,10 +103,89 @@ client.listAvailableGateways(function(err, gateways) {
 #####`.listAvailableGateways([cb])` -> `Promise`
 Lists all available gateway types on the Spreedly API
 
-See also: https://docs.spreedly.com/reference/api/v1/gateways/options-index/
+See: https://docs.spreedly.com/reference/api/v1/gateways/options-index/
 
 Arguments:
 
 - `cb` (Function callback) [optional] - A Node.js-style callback
 
 Result: `Array` - An array of [gateway abstract elements] (https://docs.spreedly.com/reference/api/v1/gateways/options-index/#response-attributes)
+
+***
+
+#####`.createGateway(gatewayType, [credentials], [cb])` -> `Promise`
+Creates and retains a gateway in your environment
+
+See: https://docs.spreedly.com/reference/api/v1/gateways/create/
+
+Arguments:
+
+- `gatewayType` (String) - [One of the specified types] (https://docs.spreedly.com/reference/api/v1/gateways/create/#direct-gateways) of gateway to create. 
+- `credentials` (Object) [optional] - Key/Value object of gateway credentials, depending on gateway type
+- `cb` (Function callback) [optional] - A Node.js-style callback
+
+Result: `Object` - A [gateway element] (https://docs.spreedly.com/reference/api/v1/gateways/create/#response-attributes)
+
+Example:
+
+```javascript
+client.createGateway('authorize_net', { login: 'yourinfo', password: 'yourtxnkey' }, function(err, result) {
+    // err handling
+    console.log(JSON.stringify(result));
+    /* Outputs:
+     *  {
+     *    "token": "XmUqcjE8pDPU3hFPJYXxK3MUtag",
+     *    "gatewayType": "authorize_net",
+     *    "login": "yourinfo",
+     *    ...
+     *  }
+     */
+});
+```
+
+***
+
+#####`.listGateways([cb])` -> `Promise`
+Lists all gateways that have been provisioned in your Spreedly environment
+
+See: https://docs.spreedly.com/reference/api/v1/gateways/index.html
+
+Arguments:
+
+- `cb` (Function callback) [optional] - A Node.js-style callback
+
+Result: `Array` - An array of [gateway elements] (https://docs.spreedly.com/reference/api/v1/gateways/index.html#response-attributes)
+
+***
+
+#####`.updateGateway(gatewayToken, [credentials], [cb])` -> `Promise`
+Updates credentials for a gateway. If the gateway was redacted, it will be set back to retained.
+
+See: https://docs.spreedly.com/reference/api/v1/gateways/update/
+
+Arguments:
+
+- `gatewayType` (String|Object) - A gateway token, or a gateway element containing a token of the gateway to update  
+- `credentials` (Object) [optional] - Key/Value object of updated gateway credentials, depending on gateway type
+- `cb` (Function callback) [optional] - A Node.js-style callback
+
+Result: `Object` - A [gateway element] (https://docs.spreedly.com/reference/api/v1/gateways/update/#response-attributes)
+
+Example:
+
+```javascript
+client.updateGateway('XmUqcjE8pDPU3hFPJYXxK3MUtag', { login: 'newinfo', password: 'newtxnkey' }, function(err, result) {
+    // err handling
+    console.log(JSON.stringify(result));
+    /* Outputs:
+     *  {
+     *    "token": "XmUqcjE8pDPU3hFPJYXxK3MUtag",
+     *    "gatewayType": "authorize_net",
+     *    "login": "newinfo",
+     *    ...
+     *  }
+     */
+});
+```
+
+***
