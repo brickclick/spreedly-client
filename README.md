@@ -129,7 +129,8 @@ Result: `Object` - A [gateway element] (https://docs.spreedly.com/reference/api/
 Example:
 
 ```javascript
-client.createGateway('authorize_net', { login: 'yourinfo', password: 'yourtxnkey' }, function(err, result) {
+var credentials = { login: 'yourinfo', password: 'yourtxnkey' };
+client.createGateway('authorize_net', credentials, function(err, result) {
     // err handling
     console.log(JSON.stringify(result));
     /* Outputs:
@@ -174,7 +175,8 @@ Result: `Object` - A [gateway element] (https://docs.spreedly.com/reference/api/
 Example:
 
 ```javascript
-client.updateGateway('XmUqcjE8pDPU3hFPJYXxK3MUtag', { login: 'newinfo', password: 'newtxnkey' }, function(err, result) {
+var newCredentials = { login: 'newinfo', password: 'newtxnkey' };
+client.updateGateway('XmUqcjE8pDPU3hFPJYXxK3MUtag', newCredentials, function(err, result) {
     // err handling
     console.log(JSON.stringify(result));
     /* Outputs:
