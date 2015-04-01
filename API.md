@@ -7,6 +7,11 @@
     - [`.updateGateway(gatewayToken, [credentials], [cb])` -> `Promise`](#updategatewaygatewaytoken-credentials-cb---promise)
     - [`.redactGateway(gatewayToken, [cb])` -> `Promise`](#redactgatewaygatewaytoken-cb---promise)
     - [`.showGateway(gatewayToken, [cb])` -> `Promise`](#showgatewaygatewaytoken-cb---promise)
+    - [`.createCreditCard(creditCard, [additionalData], [cb])` -> `Promise`] (#createcreditcardcreditcard-additionaldata-cb---promise)
+    - [`.retainPaymentMethod(paymentMethod, [cb])` -> `Promise`] (#retainpaymentmethodpaymentmethod-cb---promise)
+    - [`.listPaymentMethods([cb])` -> `Promise`] (#listpaymentmethodscb---promise)
+    - [`.redactPaymentMethod(paymentMethod, [removeFromGateway], [cb])` -> `Promise`] (#redactpaymentmethodpaymentmethod-removefromgateway-cb---promise)
+    - [`.showPaymentMethod(paymentMethod, [cb])` -> `Promise`] (#showpaymentmethodpaymentmethod-cb---promise)
     - *(additional documentation coming soon)*
     
 ## Spreedly

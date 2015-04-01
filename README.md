@@ -66,4 +66,4 @@ _All_ Spreedly client methods support both an optional Node.js-style
 
 ## API
 
-View the full API documentation here:
+View the full API documentation here: https://github.com/t3rminus/spreedly-client/blob/master/API.md
