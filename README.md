@@ -1,5 +1,7 @@
 # Spreedly Client for Node.js [![Build Status](https://travis-ci.org/t3rminus/spreedly-client.svg?branch=master)](https://travis-ci.org/t3rminus/spreedly-client)
 
+[![NPM](https://nodei.co/npm/spreedly-client.png)](https://nodei.co/npm/spreedly-client/)
+
 ## Introduction
 A Node.js library for working with the [Spreedly](https://spreedly.com/) API and credit card tokenization service.
 
