@@ -1,6 +1,6 @@
 # API
 - [Spreedly](#Spreedly)
-    - [`new Spreedly(environmentKey, accessSecret, [options])`](#new-spreedly-environmentkey-accesssecret-options---spreedly)
+    - [`new Spreedly(environmentKey, accessSecret, [options])`](#new-spreedlyenvironmentkey-accesssecret-options---spreedly)
     - [`.listAvailableGateways([cb])` -> `Promise`](#listavailablegatewayscb---promise)
     - [`.createGateway(gatewayType, [credentials], [cb])` -> `Promise`](#creategatewaygatewaytype-credentials-cb---promise)
     - [`.listGateways([cb])` -> `Promise`](#listgatewayscb---promise)
