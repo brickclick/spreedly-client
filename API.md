@@ -1,4 +1,49 @@
 # API
+
+## Property Naming & Result Objects
+The Spreedly API returns XML elements that are underscore_separated.
+These are converted to lowerCamelCase Javascript objects, and vice-versa when calling a method.
+This means that instead of providing a property like `retain_on_success`, you may provide `retainOnSuccess`,
+and it will be converted before being sent with the request.
+ 
+Additionally, in cases where a Spreedly response provides a data type,
+they will be converted to native Javascript types.
+
+Example:
+```xml
+<examples>
+   <gateway_type>authorize_net</gateway_type>
+   <name>Authorize.Net</name>
+   <supports_purchase type="boolean">true</supports_purchase>
+   <created_at type="dateTime">2015-01-08T15:54:55-05:00</created_at>
+   <cvv_code nil="true"/>
+   <amount type="integer">100</amount>
+</examples>
+```
+is converted to
+```javascript
+{
+    gatewayType: "authorize_net",
+    name: "Authorize.Net",
+    supportsPurchase: true,
+    createdAt: new Date("2015-01-08T15:54:55-05:00"),
+    cvvCode: null,
+    amount: 100
+}
+```
+
+Note that there is no root "examples" element wrapping everything--
+It is assumed that the base object represents the root, and it is not named.
+
+## Callbacks vs. Promises
+Why all the fighting and arguing over which way is better?
+There is a perfectly good solution: do both. It's easy.
+
+_All_ Spreedly client methods support both an optional Node.js-style
+`function(err, result)` callback parameter, and _also_ return a 
+[Bluebird promise](https://github.com/petkaantonov/bluebird).
+
+## API
 - [Spreedly](#Spreedly)
     - [`new Spreedly(environmentKey, accessSecret, [options])`](#new-spreedlyenvironmentkey-accesssecret-options---spreedly)
     - [`.listAvailableGateways([cb])` -> `Promise`](#listavailablegatewayscb---promise)
@@ -7,11 +52,11 @@
     - [`.updateGateway(gatewayToken, [credentials], [cb])` -> `Promise`](#updategatewaygatewaytoken-credentials-cb---promise)
     - [`.redactGateway(gatewayToken, [cb])` -> `Promise`](#redactgatewaygatewaytoken-cb---promise)
     - [`.showGateway(gatewayToken, [cb])` -> `Promise`](#showgatewaygatewaytoken-cb---promise)
-    - [`.createCreditCard(creditCard, [additionalData], [cb])` -> `Promise`] (#createcreditcardcreditcard-additionaldata-cb---promise)
-    - [`.retainPaymentMethod(paymentMethod, [cb])` -> `Promise`] (#retainpaymentmethodpaymentmethod-cb---promise)
-    - [`.listPaymentMethods([cb])` -> `Promise`] (#listpaymentmethodscb---promise)
-    - [`.redactPaymentMethod(paymentMethod, [removeFromGateway], [cb])` -> `Promise`] (#redactpaymentmethodpaymentmethod-removefromgateway-cb---promise)
-    - [`.showPaymentMethod(paymentMethod, [cb])` -> `Promise`] (#showpaymentmethodpaymentmethod-cb---promise)
+    - [`.createCreditCard(creditCard, [additionalData], [cb])` -> `Promise`](#createcreditcardcreditcard-additionaldata-cb---promise)
+    - [`.retainPaymentMethod(paymentMethod, [cb])` -> `Promise`](#retainpaymentmethodpaymentmethod-cb---promise)
+    - [`.listPaymentMethods([cb])` -> `Promise`](#listpaymentmethodscb---promise)
+    - [`.redactPaymentMethod(paymentMethod, [removeFromGateway], [cb])` -> `Promise`](#redactpaymentmethodpaymentmethod-removefromgateway-cb---promise)
+    - [`.showPaymentMethod(paymentMethod, [cb])` -> `Promise`](#showpaymentmethodpaymentmethod-cb---promise)
     - *(additional documentation coming soon)*
     
 ## Spreedly
@@ -22,8 +67,8 @@ Creates a new instance of the Spreedly class, for a given environment key.
 
 Arguments:
 
-- `environmentKey` (String) - Your [environment key] (https://docs.spreedly.com/guides/account/#environments)
-- `accessSecret` (String) - Your [access secret] (https://docs.spreedly.com/guides/account/#access-secrets)
+- `environmentKey` (String) - Your [environment key](https://docs.spreedly.com/guides/account/#environments)
+- `accessSecret` (String) - Your [access secret](https://docs.spreedly.com/guides/account/#access-secrets)
 - `options` (Object) [optional] - Key/Value object of additional options for the Spreedly API.
 
     Currently the only options are as follows:
@@ -51,7 +96,7 @@ Arguments:
 
 - `cb` (Function callback) [optional] - A Node.js-style callback
 
-Result: `Array` - An array of [gateway abstract elements] (https://docs.spreedly.com/reference/api/v1/gateways/options-index/#response-attributes)
+Result: `Array` - An array of [gateway abstract elements](https://docs.spreedly.com/reference/api/v1/gateways/options-index/#response-attributes)
 
 ***
 
@@ -62,11 +107,11 @@ See: https://docs.spreedly.com/reference/api/v1/gateways/create/
 
 Arguments:
 
-- `gatewayType` (String) - [One of the specified types] (https://docs.spreedly.com/reference/api/v1/gateways/create/#direct-gateways) of gateway to create. 
+- `gatewayType` (String) - [One of the specified types](https://docs.spreedly.com/reference/api/v1/gateways/create/#direct-gateways) of gateway to create. 
 - `credentials` (Object) [optional] - Key/Value object of gateway credentials, depending on gateway type
 - `cb` (Function callback) [optional] - A Node.js-style callback
 
-Result: `Object` - A [gateway element] (https://docs.spreedly.com/reference/api/v1/gateways/create/#response-attributes)
+Result: `Object` - A [gateway element](https://docs.spreedly.com/reference/api/v1/gateways/create/#response-attributes)
 
 Example:
 
@@ -97,7 +142,7 @@ Arguments:
 
 - `cb` (Function callback) [optional] - A Node.js-style callback
 
-Result: `Array` - An array of [gateway elements] (https://docs.spreedly.com/reference/api/v1/gateways/index.html#response-attributes)
+Result: `Array` - An array of [gateway elements](https://docs.spreedly.com/reference/api/v1/gateways/index.html#response-attributes)
 
 ***
 
@@ -112,7 +157,7 @@ Arguments:
 - `credentials` (Object) [optional] - Key/Value object of updated gateway credentials, depending on gateway type
 - `cb` (Function callback) [optional] - A Node.js-style callback
 
-Result: `Object` - A [gateway element] (https://docs.spreedly.com/reference/api/v1/gateways/update/#response-attributes)
+Result: `Object` - A [gateway element](https://docs.spreedly.com/reference/api/v1/gateways/update/#response-attributes)
 
 Example:
 
@@ -144,7 +189,7 @@ Arguments:
 - `gatewayToken` (String|Object) - A gateway token, or a gateway element containing a token of the gateway to redact  
 - `cb` (Function callback) [optional] - A Node.js-style callback
 
-Result: `Object` - A [transaction element] (https://docs.spreedly.com/reference/api/v1/gateways/redact/#response-attributes)
+Result: `Object` - A [transaction element](https://docs.spreedly.com/reference/api/v1/gateways/redact/#response-attributes)
 
 Example:
 
@@ -175,7 +220,7 @@ Arguments:
 - `gatewayToken` (String|Object) - A gateway token, or a gateway element containing a token of the gateway  
 - `cb` (Function callback) [optional] - A Node.js-style callback
 
-Result: `Object` - A [gateway element] (https://docs.spreedly.com/reference/api/v1/gateways/show/#response-attributes)
+Result: `Object` - A [gateway element](https://docs.spreedly.com/reference/api/v1/gateways/show/#response-attributes)
 
 Example:
 
@@ -205,8 +250,8 @@ only be cached temporarily.
 See: https://docs.spreedly.com/reference/api/v1/payment_methods/create_authd/
 
 Note that you probably shouldn't use this method. It's a better idea to forward data
-directly to Spreedly using their [Javascript API] (https://docs.spreedly.com/reference/api/v1/payment_methods/create_js/)
-or their [Transparent Redirect Method] (https://docs.spreedly.com/reference/api/v1/payment_methods/create_tr/).
+directly to Spreedly using their [Javascript API](https://docs.spreedly.com/reference/api/v1/payment_methods/create_js/)
+or their [Transparent Redirect Method](https://docs.spreedly.com/reference/api/v1/payment_methods/create_tr/).
 
 This method requires that users' credit card information is transmitted to you, and stored in memory
 on your servers, and thus increases your PCI compliance requirements.
@@ -217,7 +262,7 @@ Arguments:
 - `additionalData` (String|Object) [optional] - Any additional data you want to forward through to the gateways
 - `cb` (Function callback) [optional] - A Node.js-style callback
 
-Result: `Object` - A [transaction element] (https://docs.spreedly.com/reference/api/v1/payment_methods/create_authd/#response-attributes)
+Result: `Object` - A [transaction element](https://docs.spreedly.com/reference/api/v1/payment_methods/create_authd/#response-attributes)
 
 ***
 
@@ -231,7 +276,7 @@ Arguments:
 - `paymentMethod` (String|Object) - A Payment Method Element, or payment method token
 - `cb` (Function callback) [optional] - A Node.js-style callback
 
-Result: `Object` - A [payment method element] (https://docs.spreedly.com/reference/api/v1/payment_methods/retain/#response-attributes)
+Result: `Object` - A [payment method element](https://docs.spreedly.com/reference/api/v1/payment_methods/retain/#response-attributes)
 
 ***
 
@@ -244,7 +289,7 @@ Arguments:
 
 - `cb` (Function callback) [optional] - A Node.js-style callback
 
-Result: `Array` - An array of [payment method elements] (https://docs.spreedly.com/reference/api/v1/payment_methods/index.html#response-attributes)
+Result: `Array` - An array of [payment method elements](https://docs.spreedly.com/reference/api/v1/payment_methods/index.html#response-attributes)
 
 ***
 
@@ -263,7 +308,7 @@ Arguments:
 - `removeFromGateway` (String|Object) [optional] - A Gateway element, or gateway token for the 3rd party gateway
 - `cb` (Function callback) [optional] - A Node.js-style callback
 
-Result: `Object` - A [transaction element] (https://docs.spreedly.com/reference/api/v1/payment_methods/redact/#response-attributes)
+Result: `Object` - A [transaction element](https://docs.spreedly.com/reference/api/v1/payment_methods/redact/#response-attributes)
 
 ***
 
@@ -277,4 +322,4 @@ Arguments:
 - `paymentMethod` (String|Object) - A Payment Method Element, or payment method token
 - `cb` (Function callback) [optional] - A Node.js-style callback
 
-Result: `Object` - A [payment method element] (https://docs.spreedly.com/reference/api/v1/payment_methods/show/#response-attributes)
+Result: `Object` - A [payment method element](https://docs.spreedly.com/reference/api/v1/payment_methods/show/#response-attributes)
