@@ -1,4 +1,4 @@
-# Spreedly Client for Node.js [![Build Status](https://travis-ci.org/t3rminus/spreedly-client.svg?branch=master)](https://travis-ci.org/t3rminus/spreedly-client)
+# Spreedly Client for Node.js [![Build Status](https://travis-ci.org/brickclick/spreedly-client.svg?branch=master)](https://travis-ci.org/brickclick/spreedly-client)
 
 [![NPM](https://nodei.co/npm/spreedly-client.png)](https://nodei.co/npm/spreedly-client/)
 
