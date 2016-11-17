@@ -25,6 +25,7 @@ describe('Gateway Management', function() {
 			done();
 		});
 	});
+	
 	it('Can add a gateway', function(done) {
 		spreedlyClient.createGateway('test', function(err, result) {
 			should.not.exist(err);
